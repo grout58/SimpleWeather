@@ -18,9 +18,9 @@ def convert_temp(temp):
     ftemp = round(((temp - 273.15) * 1.8) + 32, 1)
     return ftemp
 
-
+# Uses opencagedata.com to convert city names into long and lat.
 def get_coords(city_name):
-    key = 'API_KEY'
+    key = '20dc21a11860494c96e8c0ed74d17699'
     api_call = f'https://api.opencagedata.com/geocode/v1/json?q={city_name}&key={key}'
 
     response = requests.get(api_call)
@@ -33,8 +33,9 @@ def get_coords(city_name):
     return{'lat': lat, 'lon': lon, 'city_name': city_name}
 
 
+# Uses openweathermap.com to the data received from get_coords to weather data.
 def get_weather(lat, lon, city_name):
-    key = 'API_KEY'
+    key = '60b91248e90de082739c85e97bd85da9'
     apiCall = f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={key}'
     response = requests.get(apiCall)
     weatherDataAll = json.loads(response.text)
@@ -46,6 +47,7 @@ def get_weather(lat, lon, city_name):
     return {'humidity': humidityData, "highTemp": highTemp, "lowTemp": lowTemp, "city_name": city_name}
 
 
+# Goes through list of cities, converts city names to long and lat then pulls weather data.
 for city in cities:
     city_data = get_coords(city)
     get_weather_data = get_weather(city_data['lat'], city_data['lon'], city_data['city_name'])
@@ -66,4 +68,3 @@ coolest_city, coolest_temp = high_temp_list[0]
 
 print(f' The hottest city in the US is {hottest_city} at {hottest_temp}')
 print(f' The coolest city in the US is {coolest_city} at {coolest_temp}')
-
