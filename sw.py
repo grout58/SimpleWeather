@@ -20,7 +20,7 @@ def convert_temp(temp):
 
 # Uses opencagedata.com to convert city names into long and lat.
 def get_coords(city_name):
-    key = '20dc21a11860494c96e8c0ed74d17699'
+    key = 'API_KEY'
     api_call = f'https://api.opencagedata.com/geocode/v1/json?q={city_name}&key={key}'
 
     response = requests.get(api_call)
@@ -35,7 +35,7 @@ def get_coords(city_name):
 
 # Uses openweathermap.com to the data received from get_coords to weather data.
 def get_weather(lat, lon, city_name):
-    key = '60b91248e90de082739c85e97bd85da9'
+    key = 'API_KEY'
     apiCall = f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={key}'
     response = requests.get(apiCall)
     weatherDataAll = json.loads(response.text)
